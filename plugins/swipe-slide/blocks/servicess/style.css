@@ -1,0 +1,10 @@
+.logo-ss{
+  background-image: url("/logo-2.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+}
+
+body{
+  overflow-x: hidden;
+}

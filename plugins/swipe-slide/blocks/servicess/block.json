@@ -1,0 +1,23 @@
+{
+	"name": "acf/servicess",
+	"apiVersion": "2",
+    "title": "Сервисы Cвайпер",
+    "description": "A custom servicess swiper block.",
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": ["servicess"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "render.php"
+    },
+	"supports" : {
+		"align" : ["wide"],
+        "color": {
+            "text": true,
+            "background": true,
+			"link": true
+        }
+	},
+    "style" : [ "flicking","file:./style.css"],
+    "script" :["tailwind","flicking" ,"servicess-acf-carousel"]
+}

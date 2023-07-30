@@ -1,0 +1,23 @@
+{
+	"name": "acf/services",
+	"apiVersion": "2",
+    "title": "Сервисы",
+    "description": "A custom services slider block.",
+    "category": "formatting",
+    "icon": "format-gallery",
+    "keywords": ["services"],
+    "acf": {
+        "mode": "preview",
+        "renderTemplate": "render.php"
+    },
+	"supports" : {
+		"align" : ["wide"],
+        "color": {
+            "text": true,
+            "background": true,
+			"link": true
+        }
+	},
+    "style" : [ "flickity","file:./style.css"],
+    "script" :["tailwind","flickity" ,"services-acf-carousel"]
+}
