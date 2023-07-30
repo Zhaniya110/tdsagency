@@ -353,7 +353,15 @@ textarea {
 				content: '\f208';
 				color:   #FFFFFF;
 			}
-
+			#menu-social li a[href*="wa.me"]::before {
+				content:'\f437';
+				color:   #FFFFFF;
+			}
+			#menu-social li a[href*="info@techlabds.com"]::before {
+				content:'\f410';
+				color:   #FFFFFF;
+			}
+			
 
 			
 			.term-description{

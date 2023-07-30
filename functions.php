@@ -49,6 +49,7 @@ if ( ! function_exists( 'tdsagency_setup' ) ) {
 		) );
 	
 		add_theme_support('woocommerce');
+		add_theme_support('post-thumbnails');
 		
 
 	}
@@ -203,6 +204,128 @@ add_action( 'woocommerce_after_add_to_cart_button', 'add_content_after_addtocart
 
 
 
+register_sidebar(
+    array(
+
+        'name' => __('Сайдбар'),
+        'id' => __('page-sidebar'),
+        'class' => 'page-sidebar',
+        'before_title' => '<h4>',
+        'after_title' => '</h4>'
+    )
 
 
 
+);
+
+
+add_theme_support( 'title-tag' );
+
+
+
+function portfolio()
+{
+$args = array(
+'labels' => array(
+'name' => 'Портфолио',
+'singular_name' => 'TechLab Портфолио'
+),
+'hierarchical' => true ,// true - like page, false - like post
+'public' => true,
+'menu_icon' => 'dashicons-welcome-learn-more',
+'has_archive'=> true,
+'menu_icon' => 'data:image/svg+xml;base64,' . base64_encode('<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2.02188 3.0166C2.00986 3.02865 2 4.03912 2 5.26216V7.4858H4.22995H6.45991V5.24636V3.00696L4.25184 3.00084C3.03742 2.99747 2.03394 3.00458 2.02188 3.0166ZM13.8459 3.02276C13.8372 3.03141 13.8301 4.03928 13.8301 5.26246V7.48641L16.0506 7.47665L18.2711 7.4669V5.23778V3.00862L16.0664 3.00783C14.8537 3.00737 13.8545 3.0141 13.8459 3.02276ZM7.93394 10.1312V17.2371H10.164H12.394L12.3845 10.141L12.375 3.04479L10.1544 3.03504L7.93394 3.02529V10.1312ZM13.8679 15.045V17.2371H16.0789H18.29V15.045V12.8528H16.0789H13.8679V15.045Z" fill="black"/>
+</svg>'),
+'supports' => array('title','editor','thumbnail'),
+
+);
+register_post_type('portfolio', $args);
+}
+
+add_action('init','portfolio');
+
+
+
+function portfolio_taxonomy(){
+ $args = array (
+               
+            'labels' => array(
+
+                          'name' => 'Категории',
+                          'singular_name' => 'Портфолио' 
+                                
+            ),
+            'public' => true,
+            'hierarchical' => true,
+
+        );
+ register_taxonomy( 'Категории', array('portfolio'), $args );
+}
+
+add_action('init','portfolio_taxonomy');
+
+
+/*=============================================
+=            BREADCRUMBS			            =
+=============================================*/
+
+//  to include in functions.php
+function the_breadcrumb() {
+
+    $sep = ' > ';
+
+    if (!is_front_page()) {
+	
+	// Start the breadcrumb with a link to your homepage
+        echo '<div class="breadcrumbs">';
+        echo '<a href="';
+        echo get_option('home');
+        echo '">';
+        bloginfo('name');
+        echo '</a>' . $sep;
+	
+	// Check if the current page is a category, an archive or a single page. If so show the category or archive name.
+        if (is_category() || is_single() ){
+            the_category('title_li=');
+        } elseif (is_archive() || is_single()){
+            if ( is_day() ) {
+                printf( __( '%s', 'text_domain' ), get_the_date() );
+            } elseif ( is_month() ) {
+                printf( __( '%s', 'text_domain' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'text_domain' ) ) );
+            } elseif ( is_year() ) {
+                printf( __( '%s', 'text_domain' ), get_the_date( _x( 'Y', 'yearly archives date format', 'text_domain' ) ) );
+            } else {
+                _e( 'Blog Archives', 'text_domain' );
+            }
+        }
+	
+	// If the current page is a single post, show its title with the separator
+        if (is_single()) {
+            echo $sep;
+            the_title();
+        }
+	
+	// If the current page is a static page, show its title.
+        if (is_page()) {
+            echo the_title();
+        }
+	
+	// if you have a static page assigned to be you posts list page. It will find the title of the static page and display it. i.e Home >> Blog
+        if (is_home()){
+            global $post;
+            $page_for_posts_id = get_option('page_for_posts');
+            if ( $page_for_posts_id ) { 
+                $post = get_post($page_for_posts_id);
+                setup_postdata($post);
+                the_title();
+                rewind_posts();
+            }
+        }
+
+        echo '</div>';
+    }
+}
+/*
+* Credit: http://www.thatweblook.co.uk/blog/tutorials/tutorial-wordpress-breadcrumb-function/
+*/

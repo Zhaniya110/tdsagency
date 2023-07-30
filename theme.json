@@ -1,14 +1,5 @@
 {
-	"customTemplates": [
-		{
-			"name": "blank",
-			"title": "Blank"
-		},
-		{
-			"name": "no-title",
-			"title": "No Title"
-		}
-	],
+	
 	"settings": {
 		"appearanceTools": true,
 		"blocks": {
@@ -560,7 +551,7 @@
 			},
 			"link": {
 				"color": {
-					"text": "var(--wp--preset--color--contrast)"
+					"text": "#008080"
 				}
 			}
 		},
