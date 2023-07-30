@@ -1,3 +1,3 @@
-# techlab-ds.kz
+# techlabds.com
 
 ![alt text](/screenshot.png)
